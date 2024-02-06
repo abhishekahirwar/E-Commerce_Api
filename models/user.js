@@ -22,7 +22,13 @@ const userSchema = new mongoose.Schema(
         password: {
             type: String,
             required: true,
-            // password validate krna hai...
+            validate: {
+                validator: (value) => {
+                    const re = /^((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64})$/;
+                    return value.match(re);
+                },
+                message: 'Please enter a strong password address',
+            },
         },
         address: {
             type: String,
